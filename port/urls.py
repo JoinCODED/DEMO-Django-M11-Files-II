@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from ships import views as ship_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("ships/", ship_views.get_ships, name="ship-list"),
 ]
