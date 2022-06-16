@@ -20,4 +20,5 @@ from ships import views as ship_views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("ships/", ship_views.get_ships, name="ship-list"),
+    path("ships/create", ship_views.create_ship, name="create-ship"),
 ]

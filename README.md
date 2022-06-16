@@ -139,3 +139,41 @@ Show students file management in templates
     ```html
     <img class="card-img" src="{{ ship.banner.url }}" alt="{{ ship.model }}" />
     ```
+
+### Media Files w/ Forms
+
+1. Go to `http://localhost:8000/ships/create`, and show them our `crispy` form.
+   - Right now, we are only rendering the form, we need to actually handle media files
+2. Update our template's `form` tag like so:
+
+   ```html
+   <form
+     action="{% url 'create-ship' %}"
+     method="POST"
+     enctype="multipart/form-data"
+   >
+     ...
+   </form>
+   ```
+
+   - Explain that `enctype` is what will allow us to deal with user-uploaded files
+
+3. Update our view so that we are handling the file upload:
+
+   ```python
+   def create_ship(request: HttpRequest) -> HttpResponse:
+       form = ShipForm()
+       if request.method == "POST":
+           form = ShipForm(request.POST, request.FILES)
+           if form.is_valid():
+               form.save()
+               return redirect("ship-list")
+       context = {
+           "form": form,
+       }
+       return render(request, "create_ship.html", context)
+   ```
+
+   - When the view is receiving a form submission and that form has file, to receive the files submitted with that form we have to include `request.FILES` as well.
+
+4. Test out the form now and show them that it works.
