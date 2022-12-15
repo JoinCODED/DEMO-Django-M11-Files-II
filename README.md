@@ -1,4 +1,4 @@
-# Django Files II
+# Django Files (Web)
 
 Show students file management in templates
 
